@@ -1,41 +1,23 @@
-// Functions
-function sayMyName(name: string): string {
-  return `Hello, ${name}`;
-}
-function throwError(error: string): never {
-  throw new Error(error);
-}
-//you can use never, when function does not have 'return'
-function calc(a: number, b: number): number {
-  return a + b;
-}
-function toUpperCase(value: string): string {
-  return value.trim();
-}
-//Function-Interface
-interface MyPosition {
-  x: number | undefined;
-  y: number | undefined;
-}
-interface MyPositionDefault extends MyPosition {
-  default: string;
-}
+//Function Example
+//? - опциональный аргумент который можно передать, а можно не передавать
+//Чтобы задать аргументы функции нужно написать name: string
+//1)Если фун-я возращает что либо то пишем после аргументов то что она возрращает, либо пишем any(если мы однозанчно не знаем что вернет фун-я)
+//2)Если фун-я не возращает что либо, то пишем void
+//3)Если фун-я бескончено выполняется или возращает ошибку(throw error), то пишем never
+// ======================= //
+function createPassword(name: string, age?: number): number {
+  return age + name.length;
+} //1)
 
-function position(): MyPosition;
-function position(a: number): MyPositionDefault;
-function position(a: number, b: number): MyPosition;
+function generateName(name: string, age?: number): void {
+  console.log(name + age);
+} //2)
 
-function position(a?: number, b?: number) {
-  if (!a && !b) {
-    return { x: undefined, y: undefined };
-  }
-  if (a && !b) {
-    return { x: a, y: undefined, default: a.toString() };
-  }
+function startBot(passowrd: string): never {
+  while (true) {}
+} //3)
 
-  return { x: a, y: b };
+//Rest Type (...)
+function generateSkills(name: string, ...skills: Array<string>): string {
+  return `${name}, у тебя есть - ${skills}`;
 }
-
-console.log('Empty', position());
-console.log('One param', position(42));
-console.log('Two params', position(42, 23));
